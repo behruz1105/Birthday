@@ -113,7 +113,7 @@ function App() {
 
       {/* Audio элемент */}
       <audio ref={audioRef} loop>
-        <source src="/src/birthday-music.mp3" type="audio/mpeg" />
+        <source src="https://eu.hitmo-top.com/get/music/20190217/Ragheb_Alama_-_Nassiny_El_Donia_-_62178972.mp3" type="audio/mpeg" />
       </audio>
 
       {/* Hero секция */}
