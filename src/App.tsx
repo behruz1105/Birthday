@@ -194,10 +194,11 @@ function App() {
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-semibold text-gray-700 mb-8">
-            До конца твоего особенного дня
+            До твоего особенного дня осталось
           </h2>
           <div className="flex justify-center gap-4 md:gap-8">
             {[
+              { label: 'Дней', value: timeLeft.days },
               { label: 'Часов', value: timeLeft.hours },
               { label: 'Минут', value: timeLeft.minutes },
               { label: 'Секунд', value: timeLeft.seconds }
