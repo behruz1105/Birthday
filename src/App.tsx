@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Gift, Music, Share2, Calendar, Star, Sparkles, Play, Pause, Volume2 } from 'lucide-react';
 
 function App() {
-  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [showGift, setShowGift] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -16,19 +16,26 @@ function App() {
   useEffect(() => {
     const updateTimer = () => {
       const now = new Date();
-      const endOfDay = new Date();
-      endOfDay.setHours(23, 59, 59, 999);
+      const targetDate = new Date(now.getFullYear(), 8, 1, 0, 0, 0, 0);
+      // Месяцы в JS начинаются с 0, поэтому 8 = сентябрь (0 - январь)
 
-      const diff = endOfDay.getTime() - now.getTime();
+      // Если 1 сентября уже прошло в этом году — ставим цель на следующий год
+      if (now > targetDate) {
+        targetDate.setFullYear(targetDate.getFullYear() + 1);
+      }
+
+      const diff = targetDate.getTime() - now.getTime();
 
       if (diff > 0) {
-        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        setTimeLeft({ hours, minutes, seconds });
+        setTimeLeft({ days, hours, minutes, seconds });
       }
     };
+
 
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
